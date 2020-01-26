@@ -7,38 +7,37 @@ const maxBrightness = 255;
 
 class ESH316GLEDREMOTE extends ZigBeeDevice {
 
+  onMeshInit() {
+    //this.enableDebug();
+    //this.printNode();
+    this.setAvailable();
 
-  	// this method is called when the Device is inited
-  	onMeshInit() {
 
-      this.enableDebug();
-  		this.printNode();
+		this.registerReportListener('genOnOff', 'toggle', this.toggleCommandParser.bind(this));
+		this.registerReportListener('genLevelCtrl', 'step', this.stepCommandParser.bind(this));
 
-      this.node.on('command', (command) => {
-        this.log(command);
+		this.switchToggleTriggerDevice = new Homey.FlowCardTriggerDevice('ESH316GLEDREMOTE_toggle').register();
+       	this.switchDimTriggerDevice = new Homey.FlowCardTriggerDevice('ESH316GLEDREMOTE_dim').register().registerRunListener((args, state, callback) => {
+        	return callback(null, args.action === state.action);
       });
+	}
 
-            // register a capability listener
-            /*this.registerCapabilityListener('onoff', this.onCapabilityOnoff.bind(this));
-            this.registerCapabilityListener('dim', this.onCapabilitydim.bind(this))*/
+	toggleCommandParser(report) {
+		return this.switchToggleTriggerDevice.trigger(this, {}, {})
+			.then(() => this.log('triggered ESH316GLEDREMOTE_toggle'))
+			.catch(err => this.error('Error triggering ESH316GLEDREMOTE_toggle', err));
+	}
 
+	stepCommandParser(report) {
+		var direction = report.stepmode === 0 ? 'right-turned' : 'left-turned';
 
-            //register att reportlisteners for onoff
-            this.registerAttrReportListener('genOnOff', 'onOff', 2, 300, 1, value => {
-              this.log('onoff', value);
-              this.setCapabilityValue('onoff', value === 1);
-            }, 0);
-
-
-            //register att reportlisteners for dim
-            this.registerAttrReportListener('genLevelCtrl', 'currentLevel', 2, 300, 1, value => {
-              this.log('dim report', value);
-              this.setCapabilityValue('dim', value / maxBrightness);
-            }, 0);
-          }
-
-
-      }
+		return this.switchDimTriggerDevice.trigger(this, {}, {
+				action: `${direction}`
+			})
+			.then(() => this.log(`triggered ESH316GLEDREMOTE_dim, action=${direction}`))
+			.catch(err => this.error('Error triggering ESH316GLEDREMOTE_dim', err));
+	}
+}
  module.exports = ESH316GLEDREMOTE;
 
  /*2019-03-07 11:40:22 [log] [ManagerDrivers] [ESH316GLEDREMOTE] [0] ZigBeeDevice has been inited
@@ -70,4 +69,30 @@ class ESH316GLEDREMOTE extends ZigBeeDevice {
 2019-03-07 11:40:22 [log] [ManagerDrivers] [ESH316GLEDREMOTE] [0] ---- cid : genLevelCtrl
 2019-03-07 11:40:22 [log] [ManagerDrivers] [ESH316GLEDREMOTE] [0] ---- sid : attrs
 2019-03-07 11:40:22 [log] [ManagerDrivers] [ESH316GLEDREMOTE] [0] ----------------------------------------
+
+// 2020-01-23 22:58:13 [log] [ManagerDrivers] [esh-316-endevender-rf] [0] { token: '7b55a008-5775-4bb2-b3e0-7f71eb39d63a',
+// device: '0x000d6f000e9cbbf6',
+// endpoint: '0',
+// cluster: 'genOnOff',
+// attr: 'toggle',
+// value:
+//  { src: { epId: 1, ieeeAddr: '0x000d6f000e9cbbf6', nwkAddr: 58125 },
+//    command: 'toggle' },
+// event: 'command' }
+
+
+// 2020-01-23 22:54:46 [log] [ManagerDrivers] [esh-316-endevender-rf] [0] { token: 'fd1dfece-ae12-4f5f-84f4-4342795dc686',
+// device: '0x000d6f000e9cbbf6',
+// endpoint: '0',
+// cluster: 'genLevelCtrl',
+// attr: 'step',
+// value:
+//  { stepmode: 0,
+//    stepsize: 12,
+//    transtime: 65535,
+//    src: { epId: 1, ieeeAddr: '0x000d6f000e9cbbf6', nwkAddr: 56436 },
+//    command: 'step' },
+// event: 'command' }
+
+
  */
