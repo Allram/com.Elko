@@ -1,75 +1,81 @@
 {
-    "id": "com.elko",
-    "version": "0.0.4",
-    "compatibility": ">=1.5.3",
-    "sdk": 2,
-    "brandColor": "#be0000",
-    "name": {
-        "en": "ELKO Smart Home"
-    },
-    "description": {
-        "en": "This app adds support for your ELKO Smart Home devices"
-    },
-    "category": [ "lights", "climate" ],
-    "images": {
-        "large": "/assets/images/Large.jpg",
-        "small": "/assets/images/small.jpg",
-    },
-    "author": {
-        "name": "Pål Raymond Johansen",
-        "email": "prj_84@hotmail.com"
-    },
-	  "contributors": {
-		  "developers": [
+  "id": "com.elko",
+  "version": "0.0.6",
+  "compatibility": ">=1.5.3",
+  "sdk": 2,
+  "brandColor": "#be0000",
+  "name": {
+    "en": "ELKO Smart Home"
+  },
+  "description": {
+    "en": "This app adds support for your ELKO Smart Home devices",
+    "no": "Denne appen gir support for Elko Smart Home enheter"
+  },
+  "category": [ "lights", "climate" ],
+  "images": {
+    "large": "/assets/images/Large.jpg",
+    "small": "/assets/images/small.jpg"
+  },
+  "author": {
+    "name": "Pål Raymond Johansen",
+    "email": "prj_84@hotmail.com"
+  },
+  "contributors": {
+    "developers": [
       {
         "name": "Pål Raymond Johansen",
         "email": "prj_84@hotmail.com"
       },
-			{
-        "name": "Martin Brasse",
-			  "email": "kasteleman@gmail.com"
+      {
+      "name": "Niels Petter Rasch-Olsen",
+      "email": "npro.home@gmail.com"
       },
       {
-        "name": "Nils-Martn Skaanes",
-        "email": "nilskaa@gmail.com"
+        "name": "Espen Ljosland",
+        "email": "espen@ljosland.com"
       },
       {
-        "name": "Ted Tolboom",
-        "email": "dtnl.homey@gmail.com"
+        "name": "Bjørnar Almli",
+        "email": "bjornar.almli@gmail.com"
       }
-      ]
-	  },
-
-	  "contributing": {
-      "donate": {
-        "paypal": {
-          "username": "prj84"
-        }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "prj84"
       }
-    },
-
-    "drivers": [
+    }
+  },
+  "drivers": [
     {
       "id": "ESH316GLED",
       "name": {
-        "en": "ESH 316GLED Dimmer RF PF"
+        "en": "ESH 316GLED Dimmer RF PF",
+        "no": "ESH 316GLED Dimmer RF PF"
       },
       "class": "light",
-      "capabilities": [ "onoff", "dim" ],
+      "capabilities": [
+        "onoff",
+        "dim"
+      ],
+      "energy": {},
       "capabilitiesOptions": {
         "dim": {
-        "setOnDim": "false"
+          "setOnDim": "false"
         }
       },
+
       "zigbee": {
         "manufacturerName": "ELKO",
         "productId": "ElkoDimmerZHA",
         "deviceId": 257,
         "profileId": 260,
-			  "learnmode": {
+        "learnmode": {
           "image": "/drivers/ESH316GLED/assets/include.svg",
           "instruction": {
-            "en": "Click on and hold dimmer wheel 1. and pushbutton 2. Until green LED 3. flashes. Wait for Homey to list device"
+            "en": "Click on and hold dimmer wheel 1. and pushbutton 2. Until green LED 3. flashes. Wait for Homey to list device",
+            "no": "Klikk og hold dimmerhjulet (1.) og knapp (2.) inntil det grønne lyset (3.), blinker. Vent på at Homey legger til enheten"
           }
         }
       },
@@ -77,28 +83,30 @@
         "large": "/drivers/ESH316GLED/assets/images/Large.jpg",
         "small": "/drivers/ESH316GLED/assets/images/Small.jpg"
       }
-	  },
+    },
     {
       "id": "ESH316GLEDREMOTE",
         "name": {
-          "en": "ESH 316GLED Dimmer REMOTE RF PF"
+          "en": "ESH 316GLED Dimmer REMOTE RF PF",
+          "no": "ESH 316GLED Endevender RF PF"
         },
-        "class": "light",
-        "capabilities": [ "onoff", "dim" ],
-        "capabilitiesOptions": {
-          "dim": {
-            "setOnDim": "false"
-          }
-        },
+        "class": "sensor",
+        "capabilities": [],
+        "energy" : {
+          "batteries": [
+            "CR2032","CR2032"
+            ]
+          },
         "zigbee": {
           "manufacturerName": "ELKO",
           "productId": "ElkoDimmerRemoteZHA",
           "deviceId": 260,
           "profileId": 260,
           "learnmode": {
-            "image": "/drivers/ESH316GLEDREMOTE/assets/include.svg",
+            "image": "/drivers/ESH316GLEDREMOTE/assets/images/pair.png",
             "instruction": {
-              "en": "Click on and hold pushbutton 2. Until green LED 3. flashes. Wait for Homey to list device"
+              "en": "Click on and hold pushbutton 1. Unntil green LED 2. flashes. Wait for Homey to list device",
+              "no": "Klikk og hold knapp 1 inntill LED 2 blinker. Vent til Homey legger til enheten"
             }
           }
         },
@@ -107,134 +115,355 @@
           "small": "/drivers/ESH316GLEDREMOTE/assets/images/Small.jpg"
         }
     },
-		{
+    {
       "id": "ESHSUPERTR",
       "name": {
-        "en": "ESH SUPER TR Thermostat RF"
+        "en": "ESH SUPER TR Thermostat RF",
+        "no": "ESH Super TR Thermostat RF"
       },
       "class": "thermostat",
-      "capabilities": [ "target_temperature",
-                        "measure_temperature",
-                        "measure_temperature.air",
-                        "measure_temperature.floor",
-                        "measure_power",
-                        "meter_power",
-                        "sensormode",
-                        "onoff.childlock",
-                        "onoff.heat" ],
+      "capabilities": [
+        "target_temperature",
+        "measure_temperature",
+        "measure_temperature.air",
+        "measure_temperature.floor",
+        "measure_power",
+        "meter_power",
+        "childlock",
+        "heat",
+        "temp_mode",
+        "regulator_mode",
+        "thermostat_load",
+        "regulator_time",
+        "date_time",
+        "night_switch",
+        "frost_guard",
+        "temp_calibration"
+      ],
       "capabilitiesOptions": {
         "target_temperature": {
-          "min": 5,
-          "max": 50,
-          "step": 0.5,
-        },
-        "measure_temperature": {
-          "title": "Thermostat Temperature"
-        },
-		    "measure_temperature.air": {
-          "title": {
-            "en": "Air"
-          },
           "min": 0,
-          "max": 30
-		    },
-		    "measure_temperature.floor": {
-          "title":{
-			       "en": "Floor"
-			    }
-		    },
-        "sensormode":{
-          "title":{
-            "en": "Sensormode"
-          },
-          "type": "enum",
-          "getable": false,
-          "setable": false,
-          "values": [
-          {
-            "id": "00",
-            "title": {
-              "en": "Air Sensor"
-            }
-          },
-          {
-            "id": "01",
-            "title": {
-              "en": "Floor Sensor"
-            }
-          },
-          {
-            "id": "03",
-            "title": {
-              "en": "Floor Sensor - Wood Floor"
-            }
-          }
-          ]
+          "max": 100,
+          "step": 0.5
         },
-		    "childlock":{
-		      "title": {
-			      "en":"Child Lock"
-          },
-          "type": "boolean",
-          "getable": true,
-          "setable": false
-        },
-        "heat":{
+        "measure_temperature.air": {
           "title": {
-            "en":"Heating"
-          },
-          "type": "boolean",
-          "getable": true,
-          "setable": false
+            "en": "Air",
+            "no": "Luft"
+          }
+        },
+        "measure_temperature.floor": {
+          "title": {
+            "en": "Floor",
+            "no": "Gulv"
+          }
         }
       },
-
       "mobile": {
         "components": [
-        {
-          "id": "icon",
-          "capabilities": [
-          ]
-        },
-        {
-          "id": "sensor",
-          "capabilities": [ "onoff.heat",
-                            "measure_temperature",
-                            "measure_temperature.air",
-                            "measure_temperature.floor",
-                            "onoff.childlock"
-                          ],
-          "options": {
-            "icons":{
-              "onoff.heat": "/drivers/ESHSUPERTR/assets/heating.svg",
-              "onoff.childlock": "/drivers/ESHSUPERTR/assets/child.svg"
-            },
-            "showTitle": true
+          {
+            "id": "icon",
+            "capabilities": [
+            ]
+          },
+          {
+            "id": "sensor",
+            "capabilities": [
+              "heat",
+              "measure_temperature.air",
+              "measure_temperature.floor",
+              "childlock"
+            ],
+            "options": {
+              "icons": {
+                "heat": "/drivers/ESHSUPERTR/assets/heating.svg",
+                "childlock": "/drivers/ESHSUPERTR/assets/child.svg"
+              },
+              "showTitle": true
             }
-        },
-        {
-        "id": "thermostat",
-        "capabilities": [ "target_temperature" ]
-        }
+          },
+          {
+            "id": "thermostat",
+            "capabilities": [
+              "target_temperature"
+            ]
+          }
         ]
       },
-
-		  "zigbee": {
+      "zigbee": {
         "manufacturerName": "ELKO",
-        "productId": ["Super TR"],
+        "productId": [
+          "Super TR"
+        ],
         "deviceId": 769,
         "profileId": 260,
-			  "learnmode": {
+        "learnmode": {
           "image": "/drivers/ESHSUPERTR/assets/include.svg",
           "instruction": {
-            "en": "Click on and hold arrow up and M Button (1) until joining/pairing is displayed. Wait for Homey to list device"
+            "en": "Click on and hold arrow up and M Button (1) until joining/pairing is displayed. Wait for Homey to list device",
+            "no": "Klikk og hold pil opp og M knappen (1.) inntil Joining/pairing vises i displayet. Vent på at Homey legger til enheten"
           }
         }
       },
       "images": {
         "large": "/drivers/ESHSUPERTR/assets/images/Large.jpg",
         "small": "/drivers/ESHSUPERTR/assets/images/Small.jpg"
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Thermostat Settings",
+            "no": "Termostat innstillinger"
+          },
+          "children": [
+            {
+              "id": "floor_watt",
+              "type": "number",
+              "label": {
+                "en": "Heating cable effect",
+                "no": "Varmekabel effekt"
+              },
+              "value": 1000,
+              "min": 1,
+              "max": 9999,
+              "units": "Watt"
+            },
+            {
+              "id": "thermostat_calibration",
+              "type": "number",
+              "label": {
+                "en": "Thermostat Calibration",
+                "no": "Termostat kalibrering"
+              },
+              "value": 0,
+              "min": -100,
+              "max": 100,
+              "units": "°C"
+            },
+            {
+              "id": "regulator_time",
+          "type": "number",
+          "label": {
+            "en": "Regulator On/Off time",
+            "no": "Regulator Av/På tid"
+          },
+          "value": 1,
+          "min": 1,
+          "max": 20,
+          "units": "min",
+          "hint": {
+                "en": "The time between each in / out connection when measured temperature is within + -0.5°C relative to set temperature. Choose a long time for (slow) concrete floors and a short time (quick) hardwood floors",
+                "no": "Tiden mellom av og påslag når temperaturen er + -0.5°C innen ønsket temperatur. Velg lang tid for betonggulv og kort tid for tregulv"
+              }
+          }
+          ]
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "childlock": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "title": {
+        "en": "Child Lock",
+        "no": "Barnesikkring"
+      },
+      "desc": {
+        "en": "Child Lock",
+        "no": "Barnesikkring"
+      },
+      "titleTrue": {
+        "en": "Locked",
+        "no": "Aktivert"
+      },
+      "titleFalse": {
+        "en": "Unlocked",
+        "no": "Deaktivert"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Locked",
+        "no": "Aktivert"
+      },
+      "insightsTitleFalse": {
+        "en": "Unlocked",
+        "no": "Deaktivert"
+      },
+      "icon": "/drivers/ESHSUPERTR/assets/child.svg"
+    },
+    "heat": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "uiQuickAction": false,
+      "title": {
+        "en": "Heating",
+        "no": "Varmer"
+      },
+      "desc": {
+        "en": "Heating",
+        "no": "Varmer"
+      },
+      "titleTrue": {
+        "en": "Heating",
+        "no": "Varmer"
+      },
+      "titleFalse": {
+        "en": "Idle",
+        "no": "Inaktiv"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "Heating",
+        "nl": "Varmer"
+      },
+      "insightsTitleFalse": {
+        "en": "Idle",
+        "nl": "Inaktiv"
+      },
+      "icon": "/drivers/ESHSUPERTR/assets/heating.svg"
+    },
+    "temp_mode": {
+      "type": "number",
+      "title": {
+        "en": "Temperature mode",
+        "no": "Temperatur modus"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false,
+      "uiComponent": null
+    },
+    "regulator_mode": {
+      "type": "boolean",
+      "title": {
+        "en": "Regulator mode",
+        "no": "Regulator modus"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": false,
+      "uiComponent": null
+    },
+    "thermostat_load": {
+      "type": "number",
+      "title": {
+        "en": "Thermostat Heating cable effect",
+        "no": "Termostat Varmekabel effekt"
+      },
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "uiComponent": null
+    },
+    "regulator_time": {
+      "type": "number",
+      "title": {
+        "en": "Regulator time",
+        "no": "Regulator tid"
+      },
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "uiComponent": null
+    },
+    "date_time": {
+      "type": "number",
+      "title": {
+        "en": "Date and time",
+        "no": "Dato og tid"
+      },
+      "getable": false,
+      "setable": true,
+      "insights": false,
+      "uiComponent": null
+    },
+    "night_switch": {
+      "type": "boolean",
+      "title": {
+        "en": "Thermostat night mode",
+        "no": "Termostat Nattsenk"
+      },
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "uiComponent": null
+    },
+    "frost_guard": {
+      "type": "boolean",
+      "title": {
+        "en": "Thermostat frost guard",
+        "no": "Termostat Frost vakt"
+      },
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "uiComponent": null
+    },
+    "temp_calibration": {
+      "type": "number",
+      "title": {
+        "en": "Thermostat temperature calibration",
+        "no": "Termostat temperatur kalibrering"
+      },
+      "getable": true,
+      "setable": true,
+      "insights": false,
+      "uiComponent": null
+    }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "ESH316GLEDREMOTE_toggle",
+        "title": {
+          "en": "Toggle-button pressed"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ESH316GLEDREMOTE"
+          }
+        ]
+      },
+      {
+        "id": "ESH316GLEDREMOTE_dim",
+        "title": {
+          "en": "Dim buttons"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=ESH316GLEDREMOTE"
+          },
+          {
+            "name": "action",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "right-turned",
+                "label": {
+                  "en": "Dimmer turned right"
+                }
+              },
+              {
+                "id": "left-turned",
+                "label": {
+                  "en": "Dimmer turned left"
+                }
+              }
+            ]
+          }
+        ]
       }
-	   }
-	 ]
+    ]
+  }
 }
